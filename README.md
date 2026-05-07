@@ -3,7 +3,7 @@
 Um clone simples do Flappy Bird feito em C++ com [Raylib](https://www.raylib.com/).
 Você controla um aviãozinho voando por um skyline noturno e precisa desviar dos prédios passando pelos vãos.
 
-![cena](https://img.shields.io/badge/lang-C%2B%2B17-blue) ![lib](https://img.shields.io/badge/raylib-6.0-orange) ![platform](https://img.shields.io/badge/platform-Linux-lightgrey)
+![cena](https://img.shields.io/badge/lang-C%2B%2B17-blue) ![lib](https://img.shields.io/badge/raylib-6.0-orange) ![platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey)
 
 ## Controles
 
@@ -49,7 +49,49 @@ sudo make install
 sudo dnf install raylib raylib-devel
 ```
 
+### Windows (MSYS2 / MinGW-w64)
+
+1. Instale o [MSYS2](https://www.msys2.org/) e abra o terminal **"MSYS2 MINGW64"**
+   (não o "MSYS" comum — precisa ser o ambiente MINGW64).
+2. Atualize e instale toolchain + raylib:
+
+   ```bash
+   pacman -Syu
+   pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-raylib make git
+   ```
+
+3. Clone o repo e entre nele:
+
+   ```bash
+   git clone https://github.com/MEUCAPSQUEBROU/C-aralho.git
+   cd C-aralho
+   ```
+
+4. Compile direto pelo `g++` (o `Makefile` deste projeto é específico de Linux):
+
+   ```bash
+   g++ -std=c++17 -O2 -Wall main.cpp -o plane.exe -lraylib -lopengl32 -lgdi32 -lwinmm
+   ./plane.exe
+   ```
+
+> **Dica:** se o `g++` não for encontrado, confira que o terminal aberto é o
+> *MINGW64* — o ícone tem o "64" verde. O ambiente "MSYS" puro não tem o
+> compilador na PATH.
+
+#### Windows com Visual Studio (alternativa)
+
+Se preferir o MSVC, use o [`vcpkg`](https://vcpkg.io/):
+
+```powershell
+vcpkg install raylib:x64-windows
+```
+
+Depois crie um projeto C++ no Visual Studio, integre o `vcpkg`
+(`vcpkg integrate install`) e adicione `main.cpp` como código-fonte.
+
 ## Compilando e rodando
+
+### Linux
 
 ```bash
 make        # gera o executável "plane"
@@ -62,6 +104,15 @@ Ou manualmente, sem o Makefile:
 ```bash
 g++ -std=c++17 -O2 -Wall main.cpp -o plane -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 ./plane
+```
+
+### Windows (MSYS2 MINGW64)
+
+O `Makefile` deste repo é Linux-only. Use o comando direto:
+
+```bash
+g++ -std=c++17 -O2 -Wall main.cpp -o plane.exe -lraylib -lopengl32 -lgdi32 -lwinmm
+./plane.exe
 ```
 
 ## GPUs antigas (OpenGL < 3.3)
