@@ -1,5 +1,10 @@
-# Compiled binary
+# Compiled binaries
 plane
+plane.exe
+
+# Build artifacts / vendored deps
+vendor/
+dist/
 
 # Object files / debug
 *.o
